@@ -5,7 +5,7 @@
   "tasks": [{
       "label": "Watch and Compile Project",
       "type": "shell",
-      "command": "npm",
+      "command": "yarn",
       "args": ["--silent", "run", "build:watch"],
       "group": {
         "kind": "build",
@@ -16,7 +16,7 @@
     {
       "label": "Build, Test and Lint",
       "type": "shell",
-      "command": "npm",
+      "command": "yarn",
       "args": ["--silent", "run", "test:dev"],
       "group": {
         "kind": "test",
