@@ -1,0 +1,10 @@
+{
+  "name": "devdb",
+  "connector": "postgresql",
+  "url": "",
+  "host": "postgresdev",
+  "port": 5432,
+  "user": "postgresdev",
+  "password": "postgresdev",
+  "database": "fakeroku"
+}
