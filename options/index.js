@@ -14,7 +14,7 @@ if (process.env.NODE_ENV) {
     const nodeEnv = process.env.NODE_ENV;
 
     try {
-        options = require(`./${nodeEnv}.config.json`);
+        options = require(`./${nodeEnv}.options.json`);
     } catch (err) {
         if (err.code !== 'MODULE_NOT_FOUND') {
             throw err;

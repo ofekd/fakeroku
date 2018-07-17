@@ -1,10 +1,10 @@
-import { FakerokuApplicaion } from './application';
+import { FakerokuApplication } from './application';
 import { ApplicationConfig } from '@loopback/core';
 
-export { FakerokuApplicaion };
+export { FakerokuApplication };
 
 export async function main(options?: ApplicationConfig) {
-  const app = new FakerokuApplicaion(options);
+  const app = new FakerokuApplication(options);
   await app.boot();
   await app.start();
   return app;
