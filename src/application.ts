@@ -16,7 +16,7 @@ import {
 } from '@loopback/repository';
 /* tslint:enable:no-unused-variable */
 
-export class FakerokuApplicaion extends
+export class FakerokuApplication extends
   BootMixin(RepositoryMixin(RestApplication)) {
   constructor(options?: ApplicationConfig) {
     super(options);
