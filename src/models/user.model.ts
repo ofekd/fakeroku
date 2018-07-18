@@ -20,7 +20,7 @@ export class User extends Entity {
     type: 'string',
     required: true
   })
-  passwordHash: string;
+  password: string;
 
   @property({
     type: 'boolean',
