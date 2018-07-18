@@ -20,7 +20,7 @@ export class User extends Entity {
     type: 'string',
     required: true
   })
-  passwordHash: string;
+  password: string;
 
   @property({
     type: 'boolean',
@@ -31,7 +31,6 @@ export class User extends Entity {
 
   @property({
     type: 'number',
-    required: true,
     default: -1
   })
   quota: number;
