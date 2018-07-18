@@ -5,7 +5,8 @@ import {
   get,
   patch,
   del,
-  requestBody
+  requestBody,
+  HttpErrors
 } from '@loopback/rest';
 import { User } from '../models';
 import { UserRepository } from '../repositories';
@@ -34,6 +35,11 @@ export class UserController {
   @authenticate('JwtStrategy')
   @get('/users/count')
   async count(@param.query.string('where') where?: Where): Promise<number> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
     return await this.userRepository.count(where);
   }
 
@@ -41,6 +47,11 @@ export class UserController {
   @get('/users')
   async find(@param.query.string('filter') filter?: Filter)
     : Promise<User[]> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
     return await this.userRepository.find(filter);
   }
 
@@ -56,12 +67,23 @@ export class UserController {
   @authenticate('JwtStrategy')
   @del('/users')
   async deleteAll(@param.query.string('where') where?: Where): Promise<number> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
+
     return await this.userRepository.deleteAll(where);
   }
 
   @authenticate('JwtStrategy')
   @get('/users/{id}')
   async findById(@param.path.number('id') id: number): Promise<User> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
     return await this.userRepository.findById(id);
   }
 
@@ -71,6 +93,11 @@ export class UserController {
     @param.path.number('id') id: number,
     @requestBody() obj: User
   ): Promise<boolean> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
     return await this.userRepository.updateById(id, obj);
   }
 
@@ -78,6 +105,12 @@ export class UserController {
   @authenticate('JwtStrategy')
   @del('/users/{id}')
   async deleteById(@param.path.number('id') id: number): Promise<boolean> {
+    const currentUser = await this.getCurrentUser();
+    if (!currentUser.isAdmin) {
+      throw new HttpErrors.Forbidden('Access denied')
+    }
+
+
     return await this.userRepository.deleteById(id);
   }
 }
