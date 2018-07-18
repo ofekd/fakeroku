@@ -1,7 +1,10 @@
 {
-    "repositories": [{
+    "repositories": {
         "user": {
             "datasource": "proddb"
+        },
+        "resource": {
+            "datasource": "proddb"
         }
-    }]
+    }
 }

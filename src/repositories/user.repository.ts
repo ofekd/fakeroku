@@ -16,7 +16,7 @@ export class UserRepository extends DefaultCrudRepository<
   public resources: HasManyRepositoryFactory<typeof User.prototype.id, Resource>;
 
   constructor(
-    @inject('repositories.user.datasource') protected datasource: juggler.DataSource,
+    @inject('options.repositories.User.datasource') protected datasource: juggler.DataSource,
     @repository(ResourceRepository) resourceRepository: ResourceRepository,
   ) {
     super(User, datasource);
