@@ -30,7 +30,9 @@ export class AuthController {
     if (!user) {
       throw new HttpErrors.NotFound('User not found');
     } else if (await Utils.verifyHash(user.password, creds.password)) {
-      return sign(user.toJSON(), this.tokenSecret);
+      const userObj = user.toJSON();
+      delete user.resources;
+      return sign(userObj, this.tokenSecret);
     } else {
       throw new HttpErrors.Unauthorized('Wrong password');
     }
