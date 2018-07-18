@@ -4,7 +4,8 @@ import { Entity, model, property } from '@loopback/repository';
 export class Resource extends Entity {
   @property({
     type: 'number',
-    id: true
+    id: true,
+    generated: true
   })
   id?: number;
 

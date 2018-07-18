@@ -1,7 +1,12 @@
 {
-    "repositories": [{
-        "user": {
-            "datasource": "devdb"
+    "repositories": {
+        "User": {
+            "datasource": "devdb",
+            "migrate": false
+        },
+        "Resource": {
+            "datasource": "devdb",
+            "migrate": false
         }
-    }]
+    }
 }
