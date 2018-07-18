@@ -8,5 +8,6 @@
             "datasource": "devdb",
             "migrate": false
         }
-    }
+    },
+    "tokenSecret": "shoosh!!!!!!!@#$%^#%^%#"
 }

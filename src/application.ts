@@ -2,7 +2,13 @@ import { ApplicationConfig } from '@loopback/core';
 import { RestApplication, RestServer, RestBindings } from '@loopback/rest';
 import { MySequence } from './sequence';
 import { DevdbDataSource, ProddbDataSource } from './datasources';
-import { UserRepository, ResourceRepository } from './repositories'
+import { UserRepository, ResourceRepository } from './repositories';
+import { Utils } from './services';
+import {
+  AuthenticationComponent,
+  AuthenticationBindings
+} from '@loopback/authentication'
+import { AuthStrategyProvider } from './providers';
 
 /* tslint:disable:no-unused-variable */
 // Binding and Booter imports are required to infer types for BootMixin!
@@ -21,6 +27,14 @@ export class FakerokuApplication extends
   BootMixin(RepositoryMixin(RestApplication)) {
   constructor(options?: ApplicationConfig) {
     super(options);
+
+    // Set up the authentication component
+    this.bind('options.tokenSecret')
+      .to(this.options && this.options.tokenSecret);
+    this.component(AuthenticationComponent);
+    this.bind(AuthenticationBindings.STRATEGY).toProvider(
+      AuthStrategyProvider,
+    );
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -41,6 +55,8 @@ export class FakerokuApplication extends
 
     this.repository(UserRepository);
     this.repository(ResourceRepository);
+
+    this.bind('services.Utils').to(Utils);
 
     if (this.options && this.options.repositories) {
       const migrate = [];
