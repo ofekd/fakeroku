@@ -42,4 +42,11 @@ export class User extends Entity {
   constructor(data?: Partial<User>) {
     super(data);
   }
+
+  toJSON(): Object {
+    const userObj = <User>super.toJSON();
+    delete userObj.password;
+
+    return userObj;
+  }
 }
