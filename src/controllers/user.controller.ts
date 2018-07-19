@@ -28,6 +28,29 @@ export class UserController {
   @post('/users')
   async create(@requestBody() obj: User)
     : Promise<User> {
+
+    if (obj.password.length < 7) {
+      throw new HttpErrors
+        .UnprocessableEntity('Password must be at least 7 characters long');
+    }
+
+
+    // Thanks to SO for the regex
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(obj.email.toLowerCase())) {
+      throw new HttpErrors.UnprocessableEntity('Please user valid email');
+    }
+
+    const isExists = await this.userRepository.findOne({
+      where: {
+        email: obj.email
+      }
+    });
+    if (isExists) {
+      throw new HttpErrors.Conflict('User with this email already exists');
+    }
+
     obj.password = await Utils.hashString(obj.password);
     return await this.userRepository.create(obj);
   }

@@ -24,7 +24,6 @@ export class User extends Entity {
 
   @property({
     type: 'boolean',
-    required: true,
     default: false
   })
   isAdmin: boolean;
