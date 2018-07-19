@@ -17,7 +17,18 @@ export class AuthController {
   ) { }
 
   @post('/auth/login')
-  async login(@requestBody() creds: {
+  async login(@requestBody({
+    description: "Login credentials",
+    required: true,
+    content: {
+      'application/json': {
+        example: {
+          email: 'john@doe.net',
+          password: 'DefNot1to9'
+        }
+      }
+    }
+  }) creds: {
     email: string;
     password: string;
   }): Promise<Secret> {
